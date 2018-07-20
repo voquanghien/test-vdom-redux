@@ -13,6 +13,7 @@ export default class Example1 {
     render(count) {
         var color =this.randomColor();
         return h('div', {
+            id: 'example1',
             style: {
                 textAlign: 'center',
                 color: '#fff',
@@ -42,11 +43,15 @@ export default class Example1 {
         }
     }
 
-    mainFunction() {
-        var count = 0;
-        var tree = this.render(count);
-        var rootNode = create(tree);
-        document.getElementById('root').appendChild(rootNode);
-        this.plusFunction(count, tree, rootNode);
+    mainFunction = greeting => {
+        this.greeting = greeting;
     }
+
+    // mainFunction() {
+    //     var count = 0;
+    //     var tree = this.render(count);
+    //     var rootNode = create(tree);
+    //     document.getElementById('example1').appendChild(rootNode);
+    //     this.plusFunction(count, tree, rootNode);
+    // }
 }
