@@ -1,6 +1,13 @@
 import { diff, patch, create, h } from "virtual-dom";
+import Thunk from "../common/thunk";
 
-export default class Example1 {
+let count = 0;
+
+export default class Example1 extends Thunk {
+    constructor() {
+        super();
+    }
+
     randomColor() {
         var letters = '0123456789ABCDEF';
         var color = '#';
@@ -10,8 +17,12 @@ export default class Example1 {
         return color;
     }
 
-    render(count) {
-        var color =this.randomColor();
+    titleCompare (previousState, currentState) {
+        return previousState.color !== currentState.color;
+    }
+
+    titleRender(previouseThunk, currentThunk) {
+        var currentColor = currentThunk.state.color;
         return h('div', {
             id: 'example1',
             style: {
@@ -21,33 +32,28 @@ export default class Example1 {
                 border: '1px solid red',
                 width: (100 + count) + 'px',
                 height: (100 + count) + 'px',
-                backgroundColor: color
+                backgroundColor: currentColor
             }
         }, [String(count)]);
     }
 
-    runningFunction(count, tree, rootNode) {
-        var newTree = this.render(count);
-        var patches = diff(tree, newTree);
+    update(rootNode, currentNode, nextNode) {
+        var patches = diff(currentNode, nextNode);
         rootNode = patch(rootNode, patches);
-        tree = newTree;
+        currentNode = nextNode;
     }
-
-    plusFunction(count, tree, rootNode) {
+    
+    runningFunction() {
         count++;
-        this.runningFunction(count, tree, rootNode);
-        if (count < 10) {
-            setTimeout(() => {
-                this.plusFunction(count, tree, rootNode)
-            }, 1000);
-        }
+        var nextN = new Thunk(this.titleRender, this.titleCompare, { color: this.randomColor()});
+        return nextN;
     }
 
-    // mainFunction() {
-    //     var count = 0;
-    //     var tree = this.render(count);
-    //     var rootNode = create(tree);
-    //     document.getElementById('example1').appendChild(rootNode);
-    //     this.plusFunction(count, tree, rootNode);
-    // }
+    render() {
+        var init = new Thunk(this.titleRender, this.titleCompare, { color: "green"});
+        var currentNode = init;
+        var rootNode = create(currentNode);
+        document.body.appendChild(rootNode);
+        return h("button", { type: "button", onclick: e => this.update(rootNode, currentNode, this.runningFunction()) }, 'test 1');
+    } 
 }
