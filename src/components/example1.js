@@ -43,10 +43,6 @@ export default class Example1 {
         }
     }
 
-    mainFunction = greeting => {
-        this.greeting = greeting;
-    }
-
     // mainFunction() {
     //     var count = 0;
     //     var tree = this.render(count);

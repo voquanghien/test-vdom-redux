@@ -67,35 +67,46 @@ var randomColor = () => {
 
 var GreenColoredThunk = new GenericThunk(titleRender, titleCompare, { color: "green"})
 var BlueColoredThunk = new GenericThunk(titleRender, titleCompare, { color: "blue"})
-var RandomColoredThunk = new GenericThunk(titleRender, titleCompare, { color: randomColor()})
+
+// We schedule a couple updates
+// Our first update will see that our color hasn't changed, and will stop comparing at that point,
+// // instead returning a reference to GreenColoredThunk.vnode
+// setTimeout(function() {
+//     update(new GenericThunk(titleRender, titleCompare, { color: "green" }));
+//     console.log('first init');
+//   },
+// 1000)
+
+// In our second update, BlueColoredThunk will see that state.color has changed,
+// and will return a new VNode, generating a patch
 
 var currentNode = GreenColoredThunk
 var rootNode = createElement(currentNode)
-
+document.body.appendChild(rootNode)
 // A simple function to diff your thunks, and patch the dom
 var update = function(nextNode) {
   var patches = diff(currentNode, nextNode)
   rootNode = patch(rootNode, patches)
   currentNode = nextNode
 }
+var count = 0;
 
-document.body.appendChild(rootNode)
-// We schedule a couple updates
-// Our first update will see that our color hasn't changed, and will stop comparing at that point,
-// instead returning a reference to GreenColoredThunk.vnode
-setTimeout(function() {
-    update(new GenericThunk(titleRender, titleCompare, { color: "green" }))
-  },
-  1000)
-
-// In our second update, BlueColoredThunk will see that state.color has changed,
-// and will return a new VNode, generating a patch
+var changeColor = (nextN) => {
+    var nextN = new GenericThunk(titleRender, titleCompare, { color: randomColor()}) 
+    update(nextN);
+}
 
 var main = () => {
-    update(RandomColoredThunk);
+    count++;
+    changeColor();
+    console.log(count);
     setTimeout(() => {
         main();
     }, 1000);
 }
 
-this.main();
+
+setTimeout(function() {
+    console.log('first init');
+    main();
+}, 1000)
