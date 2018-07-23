@@ -10,7 +10,7 @@ export default class App {
     
     render() {
       // TODO: render your app's tree here
-      return h("div", [new Example1(), new Example2() ]);
+      return h("div", new Example3());
     }
   
     update() {
