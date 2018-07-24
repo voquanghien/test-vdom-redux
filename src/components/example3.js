@@ -5,8 +5,9 @@ let count = 0;
 let colorparam = "#ccc";
 
 export default class Example3 extends Thunk {
-    constructor() {
+    constructor(root) {
         super();
+        this.root = root;
     }
 
     randomColor() {
@@ -24,7 +25,11 @@ export default class Example3 extends Thunk {
 
     titleRender(previouseThunk, currentThunk) {
         var currentColor = currentThunk.state.color;
-        // return h("h1", { style : {color: currentColor}}, "Hello, it's me!");
+        return h("h1", { style : {color: currentColor}}, "Hello, it's me!");
+    }
+
+    initialRen() {
+        return h();
     }
 
     update(rootNode, currentNode, nextNode) {
@@ -39,9 +44,7 @@ export default class Example3 extends Thunk {
     }
 
     render () {
-        
-        return h("div",[h("h1", { style : {color: colorparam}}, "Hello, it's me!"), h("button", { type: "button", onclick: e => this.update(this.rdm()) }, 'test 2')]);
-        //return h("button", { type: "button", onclick: e => console.log('a') }, 'test 2');
+        return h("div",[h("h1", { style : {color: colorparam}}, "Hello, it's me!"), h("button", { type: "button", onclick: e => this.update(rootNode, currentNode, this.rdm()) }, 'test 2')]);
     }
 
 }

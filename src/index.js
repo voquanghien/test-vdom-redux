@@ -1,12 +1,9 @@
-import Example1 from "./components/example1";
-import App from "./components/app";
-import Example2 from "./components/example2";
-import { h, create } from "virtual-dom";
-import Example3 from "./components/example3";
+import AppControl from "./components/appCon"
+import { diff, patch, create, h } from "virtual-dom";
 
 window.renderApp = props => {
-    let module = new App(props);
-    module.update();
+    let control = new AppControl(props);
+    control.update();
 }
 
 window.renderApp({

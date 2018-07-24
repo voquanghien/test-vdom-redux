@@ -1,20 +1,12 @@
 import { diff, patch, create, h } from "virtual-dom";
 import Thunk from "../common/thunk";
+import comFunc from "../common/comFunc";
 
-let count = 0;
+let count = 0, rootNode, currentNode;
 
-export default class Example1 extends Thunk {
+export default class thunkEx1 extends Thunk {
     constructor() {
         super();
-    }
-
-    randomColor() {
-        var letters = '0123456789ABCDEF';
-        var color = '#';
-        for (var i = 0; i < 6; i++) {
-            color += letters[Math.floor(Math.random() * 16)];
-        }
-        return color;
     }
 
     titleCompare (previousState, currentState) {
@@ -37,7 +29,7 @@ export default class Example1 extends Thunk {
         }, [String(count)]);
     }
 
-    update(rootNode, currentNode, nextNode) {
+    update(nextNode) {
         var patches = diff(currentNode, nextNode);
         rootNode = patch(rootNode, patches);
         currentNode = nextNode;
@@ -45,15 +37,16 @@ export default class Example1 extends Thunk {
     
     runningFunction() {
         count++;
-        var nextN = new Thunk(this.titleRender, this.titleCompare, { color: this.randomColor()});
+        var rdc = new comFunc().randomColor();
+        var nextN = new Thunk(this.titleRender, this.titleCompare, { color: rdc });
         return nextN;
     }
 
     render() {
         var init = new Thunk(this.titleRender, this.titleCompare, { color: "green"});
-        var currentNode = init;
-        var rootNode = create(currentNode);
+        currentNode = init;
+        rootNode = create(currentNode);
         document.body.appendChild(rootNode);
-        return h("button", { type: "button", onclick: e => this.update(rootNode, currentNode, this.runningFunction()) }, 'test 1');
+        return h("button", { type: "button", onclick: e => this.update(this.runningFunction()) }, 'test 1');
     } 
 }

@@ -1,20 +1,12 @@
 import { diff, patch, create, h } from "virtual-dom";
 import Thunk from "../common/thunk";
+import comFunc from "../common/comFunc";
 
-let count = 0;
+let count = 0, currentNode, rootNode;
 
-export default class Example2 extends Thunk {
+export default class thunkEx2 extends Thunk {
     constructor() {
         super();
-    }
-
-    randomColor() {
-        var letters = '0123456789ABCDEF';
-        var color = '#';
-        for (var i = 0; i < 6; i++) {
-            color += letters[Math.floor(Math.random() * 16)];
-        }
-        return color;
     }
 
     titleCompare (previousState, currentState) {
@@ -26,34 +18,24 @@ export default class Example2 extends Thunk {
         return h("h1", { style : {color: currentColor}}, "Hello, it's me!");
     }
 
-    update(rootNode, currentNode, nextNode) {
+    update(nextNode) {
         var patches = diff(currentNode, nextNode);
         rootNode = patch(rootNode, patches);
         currentNode = nextNode;
     }
 
-    changeColor(rootNode, currentNode) {
-        var nextN = new Thunk(this.titleRender, this.titleCompare, { color: this.randomColor()});
-        this.update(rootNode, currentNode, nextN);
-    }
-
-    changeColorRecur (rootNode, currentNode) {
-        count++;
-        this.changeColor(rootNode, currentNode);
-        console.log(count);
-    }
-
     rdm() {
-        var rdm = new Thunk(this.titleRender, this.titleCompare, { color: this.randomColor()});
+        var rdc = new comFunc().randomColor();
+        var rdm = new Thunk(this.titleRender, this.titleCompare, { color: rdc});
         return rdm;
     }
 
     render () {
         var GreenColoredThunk = new Thunk(this.titleRender, this.titleCompare, { color: "green"});
-        var currentNode = GreenColoredThunk;
-        var rootNode = create(currentNode);
+        currentNode = GreenColoredThunk;
+        rootNode = create(currentNode);
         document.body.appendChild(rootNode);
-        return h("button", { type: "button", onclick: e => this.update(rootNode, currentNode, this.rdm()) }, 'test 2');
+        return h("button", { type: "button", onclick: e => this.update(this.rdm()) }, 'test 2');
         //return h("div", {id:"example11"}, [h("button", { type: "button", onclick: e => this.update(rootNode, currentNode, this.rdm()) }, 'test 2')])
         //document.getElementById("example2").appendChild(rootNode);
     }
