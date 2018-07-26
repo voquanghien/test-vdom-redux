@@ -1,6 +1,6 @@
 import { h, diff, patch, create } from "virtual-dom"
 
-export default class vdomEx {
+export default class vdomEx  {
     render (count, color) {
         return h(
             "div", 

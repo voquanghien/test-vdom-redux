@@ -8,7 +8,6 @@ export default class Thunk {
     }
     
     render(previous) {
-        console.log('r');
         // The first time the Thunk renders, there will be no previous state
         var previousState = previous ? previous.state : null
         // We run the comparison function to see if the state has changed enough

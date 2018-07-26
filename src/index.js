@@ -9,3 +9,5 @@ window.renderApp = props => {
 window.renderApp({
     appId: "root"
 });
+
+window.gparam = { color: "#000", status: "1" }
