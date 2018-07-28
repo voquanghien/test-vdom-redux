@@ -35,9 +35,9 @@ export default class AppControl {
 
     testThunk(appId) {
         testbtn.addEventListener('click', () => {
-            const myObserved = new Observer({color : "#000", status: 1} , e => a.update());
-            var a = new testThunk(appId, myObserved);
-            a.update();
+            const myObserved = new Observer({color : "#000", status: 1} , e => a.update(myObserved));
+            var a = new testThunk(appId);
+            a.update(myObserved);
         });
     }
 }

@@ -12,6 +12,7 @@ export default class Example4 extends defaultThunk {
 
     render(previous) {
         if (!this.shouldUpdate(previous)) {
+            console.log("bbb");
             return previous.vnode;
         }
         return h(

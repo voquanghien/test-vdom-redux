@@ -2,18 +2,17 @@ import { diff, patch, create, h } from "virtual-dom";
 import Example4 from "./example4"
 
 export default class testThunk {
-    constructor(root, myObserved) {
+    constructor(root) {
       this.root = root;
-      this.myObserved = myObserved;
     }
     
-    render() {
+    render(myObserved) {
         // TODO: render your app's tree here
-        return h("div", {id:"thunkEx"}, new Example4(this.myObserved));
+        return h("div", {id:"thunkEx"}, new Example4(myObserved));
     }
   
-    update() {
-        let tree = this.render();
+    update(myObserved) {
+        let tree = this.render(myObserved);
         if (!this.dom) {
             this.dom = create(tree);
             document.getElementById(this.root).appendChild(this.dom);
