@@ -1,15 +1,19 @@
 import { diff, patch, create, h } from "virtual-dom";
 import Thunk from "../common/thunk";
 import comFunc from "../common/comFunc";
+import { defaultThunk } from "../common/defaultThunk";
 
-export default class Example4 extends Thunk {
-    constructor(props) {
+//export default class Example4 extends Thunk {
+export default class Example4 extends defaultThunk {
+    constructor(myObserved) {
         super();
-        this.color = props.color;
-        this.status = props.status;
+        this.myObserved = myObserved
     }
 
-    render() {
+    render(previous) {
+        if (!this.shouldUpdate(previous)) {
+            return previous.vnode;
+        }
         return h(
             "div", {
                 id : "abc"
@@ -18,19 +22,20 @@ export default class Example4 extends Thunk {
                 h(
                     "h1",
                     {
-                        id: this.status,
+                        id: this.myObserved.status,
                         style: {
-                            color: this.color
+                            color: this.myObserved.color
                         }
                     },
-                    "Hello, it's you, status = " + this.status
+                    "Hello, it's you, status = " + this.myObserved.status
                 ),
                 h(
                     "button",
                     {
                         id: "bcd",
                         type: "button",
-                        onclick: e => { window.gparam.color = new comFunc().randomColor(), console.log(window.gparam.color) }
+                        onclick: e => { Object.assign(this.myObserved , {color:new comFunc().randomColor()}), console.log(this.myObserved) }
+                        //onclick: e => {console.log('ccc')}
                     },
                     "Test observer"
                 )

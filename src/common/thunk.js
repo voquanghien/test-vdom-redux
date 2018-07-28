@@ -14,7 +14,7 @@ export default class Thunk {
         // for us to re-render. If it returns truthy, then we call the render
         // function to give us a new VNode
         if ((!previousState || !this.state) || this.cmpFn(previousState, this.state)) {
-            console.log('update');
+            console.log('thunk render');
             return this.renderFn(previous, this);
         } else {
         // vnode will be set automatically when a thunk has been created
