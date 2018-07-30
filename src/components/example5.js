@@ -5,10 +5,11 @@ import { defaultThunk } from "../common/defaultThunk";
 
 //export default class Example4 extends Thunk {
 export default class Example4 extends defaultThunk {
-    constructor(myObserved) {
+    constructor(myObserved, Arr) {
         super();
         this.myObserved = myObserved;
         this.state = JSON.stringify(this.myObserved);
+        this.Arr = myObserved.Arr;
     }
 
     render(previous) {
@@ -40,8 +41,7 @@ export default class Example4 extends defaultThunk {
                     {
                         id: "bcd",
                         type: "button",
-                        //onclick: e => { Object.assign(this.myObserved, { color:new comFunc().randomColor(), status: ++this.myObserved.status})}
-                        onclick: e => { new comFunc().randomColorApi().then((json) => {Object.assign(this.myObserved, { color:"#"+json, status: ++this.myObserved.status})})}
+                        onclick: e => { Object.assign(this.myObserved, { color:new comFunc().randomSelect(this.Arr), status: ++this.myObserved.status})}
                     },
                     "Test observer"
                 )

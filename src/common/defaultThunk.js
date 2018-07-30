@@ -1,4 +1,4 @@
-import isEqual from "lodash/isEqual";
+import isEqual from "lodash/isEqual"
 
 /**
  * Thunks allow the user to take control of the diff'ing process for a specific dom tree,

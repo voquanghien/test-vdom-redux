@@ -1,12 +1,15 @@
-
-import AppThunk from "./appThunk";
+import AppThunk from "./appThunk_app";
 import AppVdom from "./appVdom";
-import testThunk from "./appTemp";
+import testThunk1 from "./appThunk_com_1";
+import testThunk2 from "./appThunk_com_2";
 import Observer from '../common/observer';
+import comFunc from "../common/comFunc";
+import { resolve } from "path";
 
 let thunkbtn = document.getElementById("thunk");
 let vdombtn = document.getElementById("vdom");
-let testbtn = document.getElementById("test");
+let testbtn1 = document.getElementById("test1");
+let testbtn2 = document.getElementById("test2");
 
 export default class AppControl {
     constructor(props) {
@@ -16,7 +19,8 @@ export default class AppControl {
     update() {
         this.vdomTest(this.appId);
         this.thunkTest(this.appId);
-        this.testThunk(this.appId);
+        this.testThunk1(this.appId);
+        this.testThunk2(this.appId);
     }
 
     thunkTest(appId) {
@@ -33,11 +37,22 @@ export default class AppControl {
         });
     }
 
-    testThunk(appId) {
-        testbtn.addEventListener('click', () => {
+    testThunk1(appId) {
+        testbtn1.addEventListener('click', () => {
             let myObserved = new Observer({color : "#000", status: 1} , e => a.update(myObserved));
-            let a = new testThunk(appId);
+            let a = new testThunk1(appId);
             a.update(myObserved);
+        });
+    }
+
+    testThunk2(appId) {
+        testbtn2.addEventListener('click', () => {
+            var testf = [];
+            new comFunc().saveRandomColorsByApi(testf).then((json)=>{
+                let myObserved = new Observer({color : "#000", status: 1, Arr:testf} , e => a.update(myObserved));
+                let a = new testThunk2(appId);
+                a.update(myObserved);
+            });
         });
     }
 }
