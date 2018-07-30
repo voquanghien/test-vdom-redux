@@ -7,12 +7,17 @@ import { defaultThunk } from "../common/defaultThunk";
 export default class Example4 extends defaultThunk {
     constructor(myObserved) {
         super();
-        this.myObserved = myObserved
+        this.myObserved = myObserved;
+        this.state = JSON.stringify(this.myObserved);
     }
 
     render(previous) {
+        if (previous) {
+            console.log(previous.state);
+        }
+        console.log(this.state);
         if (!this.shouldUpdate(previous)) {
-            console.log("bbb");
+            console.log("should not update");
             return previous.vnode;
         }
         return h(
@@ -35,7 +40,7 @@ export default class Example4 extends defaultThunk {
                     {
                         id: "bcd",
                         type: "button",
-                        onclick: e => { Object.assign(this.myObserved , {color:new comFunc().randomColor()}), console.log(this.myObserved) }
+                        onclick: e => { Object.assign(this.myObserved, { color:new comFunc().randomColor(), status: ++this.myObserved.status})}
                         //onclick: e => {console.log('ccc')}
                     },
                     "Test observer"

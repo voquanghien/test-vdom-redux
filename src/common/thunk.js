@@ -9,7 +9,7 @@ export default class Thunk {
     
     render(previous) {
         // The first time the Thunk renders, there will be no previous state
-        var previousState = previous ? previous.state : null
+        let previousState = previous ? previous.state : null
         // We run the comparison function to see if the state has changed enough
         // for us to re-render. If it returns truthy, then we call the render
         // function to give us a new VNode

@@ -14,7 +14,7 @@ export default class thunkEx1 extends Thunk {
     }
 
     titleRender(previouseThunk, currentThunk) {
-        var currentColor = currentThunk.state.color;
+        let currentColor = currentThunk.state.color;
         return h('div', {
             id: 'example1',
             style: {
@@ -30,20 +30,20 @@ export default class thunkEx1 extends Thunk {
     }
 
     update(nextNode) {
-        var patches = diff(currentNode, nextNode);
+        let patches = diff(currentNode, nextNode);
         rootNode = patch(rootNode, patches);
         currentNode = nextNode;
     }
     
     runningFunction() {
         count++;
-        var rdc = new comFunc().randomColor();
-        var nextN = new Thunk(this.titleRender, this.titleCompare, { color: rdc });
+        let rdc = new comFunc().randomColor();
+        let nextN = new Thunk(this.titleRender, this.titleCompare, { color: rdc });
         return nextN;
     }
 
     render() {
-        var init = new Thunk(this.titleRender, this.titleCompare, { color: "green"});
+        let init = new Thunk(this.titleRender, this.titleCompare, { color: "green"});
         currentNode = init;
         rootNode = create(currentNode);
         document.body.appendChild(rootNode);

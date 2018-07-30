@@ -1,5 +1,6 @@
 import { diff, patch, create, h } from "virtual-dom";
 import Thunk from "../common/thunk";
+import comFunc from "../common/comFunc";
 
 let count = 0;
 let colorparam = "#ccc";
@@ -10,21 +11,12 @@ export default class Example3 extends Thunk {
         this.root = root;
     }
 
-    randomColor() {
-        var letters = '0123456789ABCDEF';
-        var color = '#';
-        for (var i = 0; i < 6; i++) {
-            color += letters[Math.floor(Math.random() * 16)];
-        }
-        return color;
-    }
-
     titleCompare (previousState, currentState) {
         return previousState.color !== currentState.color;
     }
 
     titleRender(previouseThunk, currentThunk) {
-        var currentColor = currentThunk.state.color;
+        let currentColor = currentThunk.state.color;
         return h("h1", { style : {color: currentColor}}, "Hello, it's me!");
     }
 
@@ -33,13 +25,13 @@ export default class Example3 extends Thunk {
     }
 
     update(rootNode, currentNode, nextNode) {
-        var patches = diff(currentNode, nextNode);
+        let patches = diff(currentNode, nextNode);
         rootNode = patch(rootNode, patches);
         currentNode = nextNode;
     }
 
     rdm() {
-        var rdm = new Thunk(this.titleRender, this.titleCompare, { color: this.randomColor()});
+        let rdm = new Thunk(this.titleRender, this.titleCompare, { color: new comFunc().randomColor()});
         return rdm;
     }
 

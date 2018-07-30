@@ -14,24 +14,24 @@ export default class thunkEx2 extends Thunk {
     }
 
     titleRender(previouseThunk, currentThunk) {
-        var currentColor = currentThunk.state.color;
+        let currentColor = currentThunk.state.color;
         return h("h1", { style : {color: currentColor}}, "Hello, it's me!");
     }
 
     update(nextNode) {
-        var patches = diff(currentNode, nextNode);
+        let patches = diff(currentNode, nextNode);
         rootNode = patch(rootNode, patches);
         currentNode = nextNode;
     }
 
     rdm() {
-        var rdc = new comFunc().randomColor();
-        var rdm = new Thunk(this.titleRender, this.titleCompare, { color: rdc});
+        let rdc = new comFunc().randomColor();
+        let rdm = new Thunk(this.titleRender, this.titleCompare, { color: rdc});
         return rdm;
     }
 
     render () {
-        var GreenColoredThunk = new Thunk(this.titleRender, this.titleCompare, { color: "green"});
+        let GreenColoredThunk = new Thunk(this.titleRender, this.titleCompare, { color: "green"});
         currentNode = GreenColoredThunk;
         rootNode = create(currentNode);
         document.body.appendChild(rootNode);

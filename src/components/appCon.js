@@ -2,7 +2,7 @@
 import AppThunk from "./appThunk";
 import AppVdom from "./appVdom";
 import testThunk from "./appTemp";
-import Observer from '../common/subpub.js';
+import Observer from '../common/observer';
 
 let thunkbtn = document.getElementById("thunk");
 let vdombtn = document.getElementById("vdom");
@@ -21,22 +21,22 @@ export default class AppControl {
 
     thunkTest(appId) {
         thunkbtn.addEventListener('click', () => {
-            var thunkex = new AppThunk(appId);
+            let thunkex = new AppThunk(appId);
             thunkex.update();
         });
     }
 
     vdomTest(appId) {
         vdombtn.addEventListener('click', () => {
-            var vdomex = new AppVdom(appId);
+            let vdomex = new AppVdom(appId);
             vdomex.main();
         });
     }
 
     testThunk(appId) {
         testbtn.addEventListener('click', () => {
-            const myObserved = new Observer({color : "#000", status: 1} , e => a.update(myObserved));
-            var a = new testThunk(appId);
+            let myObserved = new Observer({color : "#000", status: 1} , e => a.update(myObserved));
+            let a = new testThunk(appId);
             a.update(myObserved);
         });
     }

@@ -21,6 +21,7 @@ class defaultThunk {
    */
   shouldUpdate(previous) {
     if (!this.state || !previous || !previous.state) {
+      console.log('No this state | no previous | no previous state');
       return true;
     }
     console.log("update");
@@ -28,7 +29,6 @@ class defaultThunk {
   }
 
   render(previous = undefined) {
-    console.log('init');
     if (!this.shouldUpdate(previous)) {
       return previous.vnode;
     }
