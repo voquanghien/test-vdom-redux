@@ -1,11 +1,13 @@
 import { diff, patch, create, h } from "virtual-dom";
-import comFunc from "../common/comFunc";
+import { INCREASE, DECREASE } from "../actions/types"
 import { defaultThunk } from "../common/defaultThunk";
 
 //export default class Example4 extends Thunk {
 export default class SimRe extends defaultThunk {
-    constructor() {
+    constructor(store) {
         super();
+        this.store = store;
+        this.state = { value: store.getState().counter }
     }
 
     render(previous) {
@@ -25,13 +27,13 @@ export default class SimRe extends defaultThunk {
                 h(
                     "span",
                     {},
-                    0
+                    this.state.value
                 ),
                 h(
                     "button",
                     { 
                         id: "increase",
-                        onclick: e=> {console.log('a')}
+                        onclick: e=> {this.store.dispatch({ type: INCREASE })}
                     },
                     "+"
                 ),
@@ -39,7 +41,7 @@ export default class SimRe extends defaultThunk {
                     "button",
                     { 
                         id: "decrease",
-                        onclick: e=> {console.log('b')}
+                        onclick: e=> {this.store.dispatch({ type: DECREASE })}
                     },
                     "-"
                 )

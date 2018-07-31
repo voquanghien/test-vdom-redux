@@ -61,8 +61,13 @@ export default class AppControl {
 
     testRedux(appId) {
         testbtn3.addEventListener('click', () => {
+            console.log(store.getState());
             let a = new testRedux1(appId);
             a.update(store);
+            store.subscribe(() => {
+                console.log(store.getState());
+                a.update(store);
+            });
         });
     }
 }
