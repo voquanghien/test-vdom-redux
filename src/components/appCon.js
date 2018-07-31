@@ -4,12 +4,14 @@ import testThunk1 from "./appThunk_com_1";
 import testThunk2 from "./appThunk_com_2";
 import Observer from '../common/observer';
 import comFunc from "../common/comFunc";
-import { resolve } from "path";
+import testRedux1 from "./a"
+import store from "../store";
 
 let thunkbtn = document.getElementById("thunk");
 let vdombtn = document.getElementById("vdom");
 let testbtn1 = document.getElementById("test1");
 let testbtn2 = document.getElementById("test2");
+let testbtn3 = document.getElementById("testRedux");
 
 export default class AppControl {
     constructor(props) {
@@ -21,6 +23,7 @@ export default class AppControl {
         this.thunkTest(this.appId);
         this.testThunk1(this.appId);
         this.testThunk2(this.appId);
+        this.testRedux(this.appId);
     }
 
     thunkTest(appId) {
@@ -53,6 +56,13 @@ export default class AppControl {
                 let a = new testThunk2(appId);
                 a.update(myObserved);
             });
+        });
+    }
+
+    testRedux(appId) {
+        testbtn3.addEventListener('click', () => {
+            let a = new testRedux1(appId);
+            a.update(store);
         });
     }
 }
