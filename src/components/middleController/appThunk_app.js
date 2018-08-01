@@ -1,6 +1,6 @@
-import { diff, patch, create, h } from "virtual-dom";
-import thunkEx1 from "./thunkEx1";
-import thunkEx2 from "./thunkEx2"
+import { create, h } from "virtual-dom";
+import thunkEx1 from "../thunk-app/thunkEx1";
+import thunkEx2 from "../thunk-app/thunkEx2"
 
 export default class AppThunk {
     constructor(root) {

@@ -1,16 +1,15 @@
 import { diff, patch, create, h } from "virtual-dom";
-import Example4 from "./example4"
-import Example5 from "./example5"
+import Example4 from "../thunk-com-1/example4"
 
-export default class testThunk2 {
+export default class testThunk1 {
     constructor(root) {
       this.root = root;
     }
     
     render(myObserved) {
         // TODO: render your app's tree here
-        //return h("div", {id:"thunkEx"}, new Example4(myObserved));
-        return h("div", {id:"thunkEx"}, new Example5(myObserved));
+        return h("div", {id:"thunkEx"}, new Example4(myObserved));
+        //return h("div", {id:"thunkEx"}, new Example5(myObserved));
     }
   
     update(myObserved) {

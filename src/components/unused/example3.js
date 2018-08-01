@@ -1,6 +1,6 @@
 import { diff, patch, create, h } from "virtual-dom";
-import Thunk from "../common/thunk";
-import comFunc from "../common/comFunc";
+import Thunk from "../../common/thunk";
+import comFunc from "../../common/comFunc";
 
 let count = 0;
 let colorparam = "#ccc";

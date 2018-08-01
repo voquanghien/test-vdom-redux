@@ -1,7 +1,6 @@
-import { diff, patch, create, h } from "virtual-dom";
-import Thunk from "../common/thunk";
-import comFunc from "../common/comFunc";
-import { defaultThunk } from "../common/defaultThunk";
+import { h } from "virtual-dom";
+import comFunc from "../../common/comFunc";
+import { defaultThunk } from "../../common/defaultThunk";
 
 //export default class Example4 extends Thunk {
 export default class Example4 extends defaultThunk {

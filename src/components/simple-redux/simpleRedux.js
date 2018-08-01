@@ -1,6 +1,6 @@
-import { diff, patch, create, h } from "virtual-dom";
-import { INCREASE, DECREASE } from "../actions/types"
-import { defaultThunk } from "../common/defaultThunk";
+import { h } from "virtual-dom";
+import { INCREASE, DECREASE } from "../../actions/types"
+import { defaultThunk } from "../../common/defaultThunk";
 
 //export default class Example4 extends Thunk {
 export default class SimRe extends defaultThunk {
@@ -21,12 +21,20 @@ export default class SimRe extends defaultThunk {
         }
         return h(
             "div", {
-                id : "sim-redux"
+                id : "sim-redux",
+                style: {
+                    marginTop: "10px"
+                }
             },
             [
                 h(
                     "span",
-                    {},
+                    {
+                        style: {
+                            marginLeft: "10px",
+                            marginRight: "10px"
+                        }
+                    },
                     this.state.value
                 ),
                 h(

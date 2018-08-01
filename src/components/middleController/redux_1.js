@@ -1,5 +1,5 @@
 import { diff, patch, create, h } from "virtual-dom";
-import SimRe from "../components/simpleRedux"
+import SimRe from "../simple-redux/simpleRedux"
 
 export default class testRedux1 {
     constructor(root) {

@@ -1,6 +1,6 @@
 import { diff, patch, create, h } from "virtual-dom";
-import vdomEx from "./vdomEx";
-import comFunc from "../common/comFunc";
+import vdomEx from "../pure-vdom/vdomEx";
+import comFunc from "../../common/comFunc";
 
 let count = 0;
 let bgc = "#000";
@@ -31,5 +31,9 @@ export default class AppVdom {
         setTimeout(() => {
             this.main();
         }, 1000);
+    }
+
+    destroy() {
+        delete this.update();
     }
 }
