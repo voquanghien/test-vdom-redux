@@ -4,6 +4,7 @@ import comFunc from "../../common/comFunc";
 
 let count = 0;
 let bgc = "#000";
+let a;
 
 export default class AppVdom {
     constructor(root) {
@@ -28,12 +29,15 @@ export default class AppVdom {
         this.update();
         count++;
         bgc = new comFunc().randomColor();
-        setTimeout(() => {
+        a = setTimeout(() => {
             this.main();
         }, 1000);
     }
 
     destroy() {
-        delete this.update();
+        clearTimeout(a);
+        count = 0;
+        bgc = "#000";
+        document.getElementById(this.root).removeChild(this.dom);
     }
 }

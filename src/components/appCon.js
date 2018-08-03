@@ -28,8 +28,17 @@ export default class AppControl {
     //pure virtual dom testing
     vdomTest(appId) {
         vdombtn.addEventListener('click', () => {
-            let vdomex = new AppVdom(appId);
-            vdomex.main();
+            if (!this.check && !this.vdomex) {
+                this.check = true;
+                this.vdomex = new AppVdom(appId);
+                this.vdomex.main();
+            }
+            else {
+                console.log('stop');
+                this.vdomex.destroy();
+                delete this.check;
+                delete this.vdomex;
+            }
         });
     }
     //test applying thunk as applications
